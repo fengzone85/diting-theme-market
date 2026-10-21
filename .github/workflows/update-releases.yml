@@ -11,6 +11,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write
 
 concurrency:
   group: release-auto-update
@@ -33,3 +34,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/update-releases.mjs
+      - name: Dispatch catalog check for PR branch
+        # GITHUB_TOKEN 创建的 PR 不会触发 pull_request 工作流，这里显式补一次
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          branch=$(git rev-parse --abbrev-ref HEAD)
+          # 仅当分支确实推送到远端（存在对应 PR）时才补检查；无变更时会提前返回、分支未推送
+          if [ "$branch" != "main" ] && [ "$branch" != "HEAD" ] && \
+             git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+            gh workflow run check-catalog.yml --ref "$branch"
+          fi

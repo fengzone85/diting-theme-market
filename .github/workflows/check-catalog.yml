@@ -8,6 +8,9 @@ on:
   push:
     branches: [main]
   pull_request:
+  # 供收录/更新工作流主动调度：GITHUB_TOKEN 创建的 PR 不会触发 pull_request 事件，
+  # 必须由上游工作流显式 dispatch 才能让 PR 拿到必需的 check 结果。
+  workflow_dispatch:
 
 permissions:
   contents: read

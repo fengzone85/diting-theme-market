@@ -114,6 +114,12 @@ async function main() {
       String(existing.url).toLowerCase() !== String(entry.url).toLowerCase()) {
     fail(`short「${entry.short}」已被 ${existing.url} 占用；请更换 short 或联系维护者`);
   }
+  // 内容完全一致：不制造只改 updated_at 的空 PR
+  const sameFields = ['name', 'short', 'description', 'version', 'author', 'url', 'preview', 'download', 'sha256'];
+  if (existing && sameFields.every((k) => JSON.stringify(existing[k] ?? null) === JSON.stringify(entry[k] ?? null))) {
+    console.log(`✓ ${entry.short} 已在目录中且内容一致，无需更新`);
+    return;
+  }
   const { replaced } = upsertTheme(catalog, entry);
   writeCatalog(REPO_ROOT, catalog); // 内含 check-catalog，非法即抛错
 
