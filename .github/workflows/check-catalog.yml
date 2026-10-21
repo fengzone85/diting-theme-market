@@ -2,12 +2,12 @@ name: Check catalog
 
 # 校验 v1.json：schema/字段契约/short 排序与去重/SHA-256 格式/download+sha256 成对。
 # 规则与 diting server parseCatalog 对齐（server 会静默跳过非法条目，必须在此拦截）。
+# 不设 paths 过滤：main 的分支保护把它设为必需检查，任何 PR 都必须能产出该检查结果，
+# 否则仅改文档的 PR 会永远等待一个不会运行的检查。
 on:
   push:
     branches: [main]
-    paths: ['v1.json', 'scripts/**']
   pull_request:
-    paths: ['v1.json', 'scripts/**']
 
 permissions:
   contents: read
