@@ -65,11 +65,13 @@ node scripts/check-catalog.mjs
 
 ## 维护者设置 / Maintainer setup
 
+> 当前状态：第 1–4 项已完成（仓库已上线、分支保护已开启、Actions 写权限已开启、标签已创建）；第 5 项待首个主题收录后执行。
+
 1. 推送本仓库到 `github.com/fengzone85/diting-theme-market`，默认分支 `main`（diting 服务端官方源种子即指向该地址的 `v1.json`）。
 2. **开启分支保护**：`main` 要求必须通过 PR 合并，并勾选状态检查 `Check catalog`；禁止直接 push。自动收录与自动更新都只创建 PR，须人工评审后合并。
 3. **Actions 权限**：Settings → Actions → General → Workflow permissions 选择 *Read and write permissions*，否则脚本无法推送分支或创建 PR（使用内置 `GITHUB_TOKEN` 即可，无需 PAT）。
 4. **创建标签**：在 Issues → Labels 中创建 `theme/github` 与 `theme/external`，与模板中的 `labels` 声明一致（缺失时脚本仍可按表单字段识别，但 PR 不便筛选）。
-5. **上线官方源**：将 `diting/server/src/db.js` 中 `OFFICIAL_THEME_MARKET.enabled` 置为 `true`，或由管理员在主题面板手动启用「Diting Official」来源。
+5. **启用官方源**：仓库上线（已完成）后，收录**首个主题**再把 `diting/server/src/db.js` 中 `OFFICIAL_THEME_MARKET.enabled` 置为 `true`，或由管理员在主题面板手动启用「Diting Official」来源；空目录提前启用只会让每次拉 catalog 多一次无结果的网络请求。
 
 ## 仓库结构 / Layout
 
