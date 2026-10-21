@@ -1,0 +1,41 @@
+name: 收录主题（GitHub 开源）/ Submit a GitHub-hosted theme
+description: 提交一个在 GitHub 开源、最新 Release 已附带主题 ZIP 的 diting 主题。
+labels: [theme/github]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        只需填写仓库地址与预览图。Action 会自动下载最新 Release 的 ZIP，
+        从包内 `diting-theme.json` 读取名称、short、版本、作者与描述，
+        并计算 SHA-256 后创建收录 PR。
+
+  - type: input
+    id: repo
+    attributes:
+      label: 主题 GitHub 仓库地址
+      description: 必须是 https://github.com/<owner>/<repo> 形式，仓库需公开。
+    validations:
+      required: true
+
+  - type: input
+    id: preview
+    attributes:
+      label: 预览图 URL
+      description: 绝对 HTTP(S) 地址，建议直接链接仓库内的 preview 图片（raw 地址）。
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 提交确认
+      options:
+        - label: 我确认该仓库最新 Release 已上传包含根目录 diting-theme.json 的主题 ZIP
+          required: true
+        - label: 我确认 short 不与目录中已有主题重复，且不是 default
+          required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 补充说明（可选）

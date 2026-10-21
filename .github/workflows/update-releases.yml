@@ -1,0 +1,35 @@
+name: Release auto update
+
+# 每 6 小时跟踪 GitHub 托管主题的最新 Release：
+# 构造「最新 tag + 现有 asset 名」下载地址（API asset 后备），
+# 包须通过根 manifest、short、SHA-256 校验，有变化才创建 PR。
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: release-auto-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Preflight (runner dependencies)
+        run: |
+          node -v
+          unzip -v > /dev/null
+          gh --version
+      - name: Track latest releases and create PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/update-releases.mjs

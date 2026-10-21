@@ -1,0 +1,78 @@
+name: 收录主题（非 GitHub 托管）/ Submit an externally-hosted theme
+description: 提交一个不在 GitHub 托管（自建站点 / 网盘直链等）的 diting 主题。
+labels: [theme/external]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        需要提供主题包的直链与全部元数据。Action 会下载 ZIP，校验
+        包内 manifest 的 short / version 与 SHA-256 后创建收录 PR。
+        主题包 ZIP 根目录必须包含 `diting-theme.json`。
+
+  - type: input
+    id: url
+    attributes:
+      label: 项目地址
+      description: 主题的项目主页。不得是 GitHub 托管地址。
+    validations:
+      required: true
+
+  - type: input
+    id: download
+    attributes:
+      label: 主题包下载地址
+      description: 指向主题 ZIP 的直链，绝对 HTTP(S) 地址。不得是 GitHub 托管地址。
+    validations:
+      required: true
+
+  - type: input
+    id: preview
+    attributes:
+      label: 预览图 URL
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: 主题名称
+    validations:
+      required: true
+
+  - type: input
+    id: short
+    attributes:
+      label: 唯一短名称 short
+      description: 只允许字母、数字、下划线与连字符，不能为 default，且不得与已有主题重复。
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: 版本号
+      description: 必须与包内 manifest.version 一致。
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 描述
+    validations:
+      required: true
+
+  - type: input
+    id: author
+    attributes:
+      label: 作者
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 提交确认
+      options:
+        - label: 我确认下载地址与项目地址均非 GitHub 托管，且对该主题包拥有分发权利
+          required: true

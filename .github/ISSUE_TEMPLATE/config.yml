@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: diting 使用问题 / Usage questions
+    url: https://github.com/fengzone85/diting
+    about: diting 主仓库的问题反馈请到这里；本仓库只受理主题市场收录。

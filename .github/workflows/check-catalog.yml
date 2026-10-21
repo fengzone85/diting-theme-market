@@ -1,0 +1,23 @@
+name: Check catalog
+
+# 校验 v1.json：schema/字段契约/short 排序与去重/SHA-256 格式/download+sha256 成对。
+# 规则与 diting server parseCatalog 对齐（server 会静默跳过非法条目，必须在此拦截）。
+on:
+  push:
+    branches: [main]
+    paths: ['v1.json', 'scripts/**']
+  pull_request:
+    paths: ['v1.json', 'scripts/**']
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/check-catalog.mjs
