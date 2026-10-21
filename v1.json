@@ -1,5 +1,26 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-21T00:00:00.000Z",
-  "themes": []
+  "updated_at": "2026-10-21T08:51:54.213Z",
+  "themes": [
+    {
+      "name": {
+        "zh_CN": "糖果屋",
+        "en": "Candy House"
+      },
+      "short": "neobrutalism",
+      "description": {
+        "zh_CN": "Neo-Brutalism 风格主题：高饱和糖果色、粗黑边框、硬阴影，专为极客监控打造。",
+        "en": "A neo-brutalism theme with saturated candy colors, thick black borders and hard shadows."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "diting",
+        "url": "https://github.com/fengzone85/diting"
+      },
+      "url": "https://github.com/fengzone85/diting-theme-neobrutalism",
+      "preview": "https://raw.githubusercontent.com/fengzone85/diting-theme-neobrutalism/main/preview.svg",
+      "download": "https://github.com/fengzone85/diting-theme-neobrutalism/releases/download/v1.0.0/neobrutalism-1.0.0.zip",
+      "sha256": "7dfa6079d4650efba6604f86666bfc50a72dd5045dfeca667a48f578e8a13a16"
+    }
+  ]
 }
